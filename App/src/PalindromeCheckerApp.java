@@ -1,32 +1,34 @@
+import java.util.Scanner;
+import java.util.Stack;
+
 public class PalindromeCheckerApp {
 
     public static void main(String[] args) {
-        String input = "racecar";
 
-        if (isPalindrome(input)) {
-            System.out.println(input + " is a palindrome.");
+        Scanner scanner = new Scanner(System.in);
+        Stack<Character> stack = new Stack<>();
+
+        System.out.print("Enter a string: ");
+        String input = scanner.nextLine();
+
+        // Push characters into stack
+        for (int i = 0; i < input.length(); i++) {
+            stack.push(input.charAt(i));
+        }
+
+        // Pop characters to create reversed string
+        String reversed = "";
+        while (!stack.isEmpty()) {
+            reversed += stack.pop();
+        }
+
+        // Compare original and reversed
+        if (input.equals(reversed)) {
+            System.out.println("The string is a Palindrome.");
         } else {
-            System.out.println(input + " is not a palindrome.");
+            System.out.println("The string is NOT a Palindrome.");
         }
+
+        scanner.close();
     }
-
-    public static boolean isPalindrome(String str) {
-        // Step 1: Convert string to char array
-        char[] charArray = str.toCharArray();
-
-        // Step 2: Initialize two pointers
-        int left = 0;
-        int right = charArray.length - 1;
-
-        // Step 3: Compare characters moving toward the center
-        while (left < right) {
-            if (charArray[left] != charArray[right]) {
-                return false; // Mismatch found, not a palindrome
-            }
-            left++;  // Move forward
-            right--; // Move backward
-        }
-
-        return true; // All characters matched
-    } // This was the brace causing the issue (ensure only one exists here)
 }
