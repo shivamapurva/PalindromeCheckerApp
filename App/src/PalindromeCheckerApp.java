@@ -2,25 +2,38 @@ import java.util.Scanner;
 
 public class PalindromeCheckerApp {
 
-    public static void main(String[] args) {
+    // Method to check if a string is a palindrome (case-insensitive & space ignored)
+    public static boolean isPalindrome(String input) {
+        // Normalize the string: remove spaces and convert to lowercase
+        String normalized = input.replaceAll("\\s+", "").toLowerCase();
 
-        Scanner scanner = new Scanner(System.in);
+        // Initialize pointers for start and end
+        int left = 0;
+        int right = normalized.length() - 1;
 
-        System.out.print("Enter a string: ");
-        String input = scanner.nextLine();
-
-        String reversed = "";
-
-        // Reverse string using for loop
-        for (int i = input.length() - 1; i >= 0; i--) {
-            reversed = reversed + input.charAt(i);
+        // Check characters from both ends
+        while (left < right) {
+            if (normalized.charAt(left) != normalized.charAt(right)) {
+                return false; // Not a palindrome
+            }
+            left++;
+            right--;
         }
 
-        // Compare original and reversed string
-        if (input.equals(reversed)) {
-            System.out.println("The string is a Palindrome.");
+        return true; // It's a palindrome
+    }
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("=== Palindrome Checker App ===");
+        System.out.print("Enter a string to check: ");
+        String input = scanner.nextLine();
+
+        if (isPalindrome(input)) {
+            System.out.println("The string is a palindrome (case-insensitive & space ignored).");
         } else {
-            System.out.println("The string is NOT a Palindrome.");
+            System.out.println("The string is NOT a palindrome.");
         }
 
         scanner.close();
